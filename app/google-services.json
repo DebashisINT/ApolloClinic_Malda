@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "159989975496",
+    "project_id": "apollo-clinic-malda",
+    "storage_bucket": "apollo-clinic-malda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159989975496:android:07d8578e0f68cb1e9398fd",
+        "android_client_info": {
+          "package_name": "com.apolloclinicmalda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159989975496-m4tkptlrf4qs69oklqhr00r5gqa3solf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA03RqmQR2AD2CC8rulQV1USfJ3YTqKEg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159989975496-m4tkptlrf4qs69oklqhr00r5gqa3solf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
