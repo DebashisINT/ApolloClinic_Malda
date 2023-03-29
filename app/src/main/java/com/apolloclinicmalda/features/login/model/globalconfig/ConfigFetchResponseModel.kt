@@ -5,6 +5,8 @@ import com.apolloclinicmalda.base.BaseResponse
 /**
  * Created by Saikat on 14-01-2019.
  */
+//Revision History
+// 1.0 ConfigFetchResponseModel AppV 4.0.6  Saheli    25/01/2023  mantis 25623
 class ConfigFetchResponseModel : BaseResponse() {
     var min_accuracy: String? = "200"
     var max_accuracy: String? = "1500"
@@ -118,8 +120,14 @@ class ConfigFetchResponseModel : BaseResponse() {
     var Show_App_Logout_Notification: Boolean? = null//2.0 LocationFuzedService  AppV 4.0.6
 
     var IsBeatAvailable: Boolean? = null
+    var IsDiscountEditableInOrder:Boolean? = null//mantis 25623
+    var isExpenseFeatureAvailable:Boolean?=null//mantis 25607
+    var IsRouteStartFromAttendance:Boolean?=null
 
+    var IsShowQuotationFooterforEurobond:Boolean?=null
+    var IsShowOtherInfoinShopMaster:Boolean?=null
 
+    var IsAllowZeroRateOrder: Boolean? = null
 
 
 

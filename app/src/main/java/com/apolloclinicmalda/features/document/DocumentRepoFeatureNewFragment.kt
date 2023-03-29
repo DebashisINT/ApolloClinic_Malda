@@ -18,7 +18,7 @@ import com.apolloclinicmalda.features.dashboard.presentation.DashboardActivity
 import com.apolloclinicmalda.features.document.api.DocumentRepoProvider
 import com.apolloclinicmalda.features.document.model.DocumentTypeResponseModel
 import com.apolloclinicmalda.widgets.AppCustomTextView
-import com.elvishew.xlog.XLog
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync

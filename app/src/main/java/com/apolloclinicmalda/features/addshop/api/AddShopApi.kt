@@ -9,6 +9,8 @@ import com.apolloclinicmalda.features.addshop.model.imageListResponse
 import com.apolloclinicmalda.features.addshop.presentation.ShopListSubmitResponse
 import com.apolloclinicmalda.features.addshop.presentation.multiContactRequestData
 import com.apolloclinicmalda.features.beatCustom.BeatGetStatusModel
+import com.apolloclinicmalda.features.nearbyshops.presentation.ShopModifiedListResponse
+import com.apolloclinicmalda.features.nearbyshops.presentation.ShopModifiedUpdateList
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.Retrofit
@@ -24,6 +26,15 @@ interface AddShopApi {
 
     @POST("RubyFoodLead/QuestionListSave")
     fun getAddQuestionSubmit(@Body addQuestion:AddQuestionSubmitRequestData?): Observable<BaseResponse>
+
+    // 5.0 NearByShopsListFragment AppV 4.0.6 Suman 03-02-2023 updateModifiedShop + sendModifiedShopList  for shop update mantis 25624
+    @FormUrlEncoded
+    @POST("Shoplist/ModifiedShopLists")
+    fun getModifiedShopList(@Field("user_id") user_id: String,@Field("session_token") session_token: String): Observable<ShopModifiedListResponse>
+
+    // 5.0 NearByShopsListFragment AppV 4.0.6 Suman 03-02-2023 updateModifiedShop + sendModifiedShopList  for shop update mantis 25624
+    @POST("Shoplist/EditModifiedShop")
+    fun getModifiedShopListApi(@Body addQuestion: ShopModifiedUpdateList?): Observable<BaseResponse>
 
     @POST("RubyFoodLead/QuestionListEdit")
     fun getAddQuestionUpdateSubmit(@Body addQuestion:AddQuestionSubmitRequestData?): Observable<BaseResponse>

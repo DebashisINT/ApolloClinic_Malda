@@ -2,11 +2,12 @@ package com.apolloclinicmalda.app.utils
 
 import android.text.Editable
 import android.text.TextWatcher
+import com.apolloclinicmalda.widgets.AppCustomEditText
 import com.google.android.material.textfield.TextInputEditText
 import java.math.RoundingMode
 import java.text.NumberFormat
 
-class CustomSpecialTextWatcher2 (private val editText: TextInputEditText, private val integerConstraint: Int, private val fractionConstraint: Int, private val listener: GetCustomTextChangeListener) :
+class CustomSpecialTextWatcher2 (private val editText: AppCustomEditText, private val integerConstraint: Int, private val fractionConstraint: Int, private val listener: GetCustomTextChangeListener) :
     TextWatcher {
     private val numberFormat = NumberFormat.getNumberInstance()
     private var temp = ""

@@ -22,7 +22,7 @@ import com.apolloclinicmalda.app.utils.AppUtils;
 import com.apolloclinicmalda.features.dashboard.presentation.DashboardActivity;
 import com.apolloclinicmalda.features.newcollectionreport.CollectionNotiViewPagerFrag1;
 import com.apolloclinicmalda.features.splash.presentation.SplashActivity;
-import com.elvishew.xlog.XLog;
+
 
 public class MonitorCollPending extends BroadcastReceiver {
     public static MediaPlayer player = null;

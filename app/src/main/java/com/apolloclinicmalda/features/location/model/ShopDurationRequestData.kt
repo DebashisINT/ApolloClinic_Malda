@@ -4,6 +4,8 @@ package com.apolloclinicmalda.features.location.model
 /**
  * Created by Pratishruti on 28-11-2017.
  */
+// revision History
+// extra output parameter added by saheli 13-03-2023 mantis 0001
 class ShopDurationRequestData {
 
     var shop_id: String? = null
@@ -37,6 +39,7 @@ class ShopDurationRequestData {
     var isnewShop: Boolean? = null
     var multi_contact_name: String?= null
     var multi_contact_number: String?= null
+//    var IsShopUpdate: Boolean? = null
 
 
 //    "visited_date": "yyyy-MM-dd",

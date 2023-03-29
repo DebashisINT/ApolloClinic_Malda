@@ -58,7 +58,7 @@ import org.jetbrains.anko.uiThread
 /**
  * Created by riddhi on 2/1/18.
  */
-
+// 1.0 LocalShopsListAdapter  AppV 4.0.6  Suman   31/01/2023 Retailer/Entity show from room db mantis_id 25636
 class LocalShopsListAdapter(context: Context, list: List<AddShopDBModelEntity>, val listener: LocalShopListClickListener,private val getSize: (Int) -> Unit) :
         RecyclerView.Adapter<LocalShopsListAdapter.MyViewHolder>(), Filterable {
     private val layoutInflater: LayoutInflater
@@ -456,6 +456,17 @@ class LocalShopsListAdapter(context: Context, list: List<AddShopDBModelEntity>, 
             }
             else
                 itemView.tv_party_value.text = "N.A."
+
+            itemView.tv_retailer_entity_header.text = "Party Category: "
+            try{
+                if(list[adapterPosition].retailer_id == null || list[adapterPosition].retailer_id.equals("")){
+                    itemView.tv_retailer_entity_value.text = "N.A."
+                }else{
+                    itemView.tv_retailer_entity_value.text = AppDatabase.getDBInstance()?.retailerDao()?.getSingleItem(list[adapterPosition].retailer_id.toString())!!.name
+                }
+            }catch (ex:Exception){
+                itemView.tv_retailer_entity_value.text = "N.A."
+            }
 
 
             if(Pref.IsFeedbackHistoryActivated){

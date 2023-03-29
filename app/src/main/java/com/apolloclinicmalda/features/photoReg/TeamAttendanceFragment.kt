@@ -44,7 +44,7 @@ import com.apolloclinicmalda.features.login.UserLoginDataEntity
 import com.apolloclinicmalda.features.login.presentation.LoginActivity
 import com.apolloclinicmalda.features.photoReg.model.UserListResponseModel
 import com.apolloclinicmalda.widgets.AppCustomTextView
-import com.elvishew.xlog.XLog
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.doAsync

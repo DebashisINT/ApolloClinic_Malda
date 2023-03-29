@@ -16,11 +16,14 @@ import android.widget.RelativeLayout
 import com.apolloclinicmalda.R
 import com.apolloclinicmalda.app.AppDatabase
 import com.apolloclinicmalda.app.Pref
+import com.apolloclinicmalda.app.domain.AddShopDBModelEntity
 import com.apolloclinicmalda.app.domain.OrderDetailsListEntity
 import com.apolloclinicmalda.app.uiaction.IntentActionable
 import com.apolloclinicmalda.app.utils.AppUtils
 import com.apolloclinicmalda.base.presentation.BaseFragment
 import com.apolloclinicmalda.features.dashboard.presentation.DashboardActivity
+import com.apolloclinicmalda.features.location.LocationWizard
+import com.apolloclinicmalda.features.viewAllOrder.orderOptimized.OrderProductCartFrag
 import com.apolloclinicmalda.widgets.AppCustomTextView
 
 /**
@@ -98,7 +101,24 @@ class ViewCartFragment : BaseFragment() {
         tv_total_order_value = view.findViewById(R.id.tv_total_order_value)
         tv_shop_name = view.findViewById(R.id.tv_shop_name)
 
-        val shop = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopDetail(orderDetails?.shop_id)
+        //assignedto_dd map in shop begin
+        var shop = AddShopDBModelEntity()
+        try {
+             shop = AppDatabase.getDBInstance()!!.addShopEntryDao().getShopDetail(orderDetails?.shop_id)
+        }catch (ex:Exception){
+                /*var objDD = orderDetails?.shop_id?.let {
+                    AppDatabase.getDBInstance()?.ddListDao()?.getSingleValue(
+                        it
+                    )
+                }
+            shop.shop_id = objDD!!.dd_id
+            shop.shopName = objDD.dd_name
+            shop.shopLat = objDD.dd_latitude!!.toDouble()
+            shop.shopLong = objDD.dd_longitude!!.toDouble()
+            shop.address = LocationWizard.getLocationName(mContext, objDD.dd_latitude!!.toDouble(),   objDD.dd_longitude!!.toDouble())
+            shop.isUploaded = true
+            shop.type = "4"*/
+        }
         tv_shop_name.text = shop.shopName
 
         tv_order_id = view.findViewById(R.id.tv_order_id)

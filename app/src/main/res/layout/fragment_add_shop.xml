@@ -3967,6 +3967,14 @@
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <ImageView
+                            android:id="@+id/iv_frag_add_shop_mic"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            app:tint="@color/color_custom_red"
+                            android:src="@drawable/ic_mic"/>
+
                         <com.apolloclinicmalda.widgets.AppCustomTextView
                             android:id="@+id/tv_feedback_asterisk_mark"
                             android:layout_width="wrap_content"
@@ -4180,7 +4188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
                     android:background="@drawable/shape_custom_border_blue_button"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -4192,7 +4200,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_7sdp"
-                        app:srcCompat="@drawable/ic_camera_small" />
+                        app:tint="@color/white"
+                        app:srcCompat="@drawable/ic_camera_small_white" />
 
 
                     <com.apolloclinicmalda.widgets.AppCustomTextView

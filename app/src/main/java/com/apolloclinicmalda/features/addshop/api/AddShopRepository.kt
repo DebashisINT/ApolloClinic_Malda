@@ -15,6 +15,8 @@ import com.apolloclinicmalda.features.addshop.presentation.ShopListSubmitRespons
 import com.apolloclinicmalda.features.addshop.presentation.multiContactRequestData
 import com.apolloclinicmalda.features.beatCustom.BeatGetStatusModel
 import com.apolloclinicmalda.features.dashboard.presentation.DashboardActivity
+import com.apolloclinicmalda.features.nearbyshops.presentation.ShopModifiedListResponse
+import com.apolloclinicmalda.features.nearbyshops.presentation.ShopModifiedUpdateList
 import com.google.gson.Gson
 import io.reactivex.Observable
 import okhttp3.MediaType
@@ -55,6 +57,14 @@ class AddShopRepository(val apiService: AddShopApi) {
         return apiService.geimagelist(shop_id,Pref.user_id!!,Pref.session_token!!)
     }
 
+    // 5.0 NearByShopsListFragment AppV 4.0.6 Suman 03-02-2023 updateModifiedShop + sendModifiedShopList  for shop update mantis 25624
+    fun checkModifiedShopList(): Observable<ShopModifiedListResponse> {
+        return apiService.getModifiedShopList(Pref.user_id!!,Pref.session_token!!)
+    }
+    // 5.0 NearByShopsListFragment AppV 4.0.6 Suman 03-02-2023 updateModifiedShop + sendModifiedShopList  for shop update mantis 25624
+    fun updateModifiedShopList(obj : ShopModifiedUpdateList): Observable<BaseResponse> {
+        return apiService.getModifiedShopListApi(obj)
+    }
     fun addShopWithImage(shop: AddShopRequestData, shop_image: String, context: Context): Observable<AddShopResponse> {
         var profile_img_data: MultipartBody.Part? = null
 

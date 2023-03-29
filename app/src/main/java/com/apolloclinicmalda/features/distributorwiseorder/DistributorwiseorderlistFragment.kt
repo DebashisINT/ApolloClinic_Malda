@@ -434,7 +434,19 @@ class DistributorwiseorderlistFragment : BaseFragment(), View.OnClickListener {
                 // table header
 //                val widths = floatArrayOf(0.06f, 0.58f, 0.07f, 0.07f, 0.07f, 0.15f)
                 // mantis 25601
-                val widths = floatArrayOf(0.06f, 0.36f, 0.07f, 0.07f, 0.07f, 0.15f,0.07f, 0.15f)
+                var widths = floatArrayOf(0.06f, 0.36f, 0.07f, 0.07f, 0.07f, 0.15f,0.07f, 0.15f)
+                if(Pref.IsViewMRPInOrder && Pref.IsDiscountInOrder){
+                    widths = floatArrayOf(0.06f, 0.36f, 0.07f, 0.07f, 0.07f, 0.15f,0.07f, 0.15f)
+                }
+                else if(Pref.IsViewMRPInOrder) {
+                    widths = floatArrayOf(0.06f, 0.40f, 0.11f, 0.11f, 0.07f,0.10f,0.15f)
+                }
+                else if(Pref.IsDiscountInOrder) {
+                    widths = floatArrayOf(0.06f, 0.40f, 0.07f, 0.07f, 0.15f,0.10f, 0.15f)
+                }
+                else{
+                    widths = floatArrayOf(0.06f, 0.40f, 0.13f, 0.13f,0.13f, 0.15f)
+                }
 
                 var tableHeader: PdfPTable = PdfPTable(widths)
                 tableHeader.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT)
@@ -460,6 +472,21 @@ class DistributorwiseorderlistFragment : BaseFragment(), View.OnClickListener {
                 cell21.borderColor = BaseColor.GRAY
                 tableHeader.addCell(cell21);
 
+                // AppV 4.0.6  mantis 25601
+                if(Pref.IsViewMRPInOrder) {
+                    val cellMrp = PdfPCell(Phrase("MRP ", font))
+                    cellMrp.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cellMrp.borderColor = BaseColor.GRAY
+                    tableHeader.addCell(cellMrp);
+                }
+
+                if(Pref.IsDiscountInOrder) {
+                    val cellDiscount = PdfPCell(Phrase("Discount ", font))
+                    cellDiscount.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cellDiscount.borderColor = BaseColor.GRAY
+                    tableHeader.addCell(cellDiscount);
+                }
+
                 val cell3 = PdfPCell(Phrase("Rate ", font))
                 cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
                 cell3.borderColor = BaseColor.GRAY
@@ -470,16 +497,7 @@ class DistributorwiseorderlistFragment : BaseFragment(), View.OnClickListener {
                 cell4.borderColor = BaseColor.GRAY
                 tableHeader.addCell(cell4);
 
-                // AppV 4.0.6  mantis 25601
-                val cellMrp = PdfPCell(Phrase("MRP ", font))
-                cellMrp.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cellMrp.borderColor = BaseColor.GRAY
-                tableHeader.addCell(cellMrp);
 
-                val cellDiscount = PdfPCell(Phrase("Discount ", font))
-                cellDiscount.setHorizontalAlignment(Element.ALIGN_LEFT);
-                cellDiscount.borderColor = BaseColor.GRAY
-                tableHeader.addCell(cellDiscount);
 
                 document.add(tableHeader)
 
@@ -511,8 +529,14 @@ class DistributorwiseorderlistFragment : BaseFragment(), View.OnClickListener {
                     tAmt = (tAmt.toDouble()+tempProductObj.get(j).amt.toDouble()).toString()
 
                     // AppV 4.0.6  mantis 25601
+                    try{
                     mrp = getString(R.string.rupee_symbol_with_space)+" "+tempProductObj!!.get(i).order_mrp+" "
                     discount = getString(R.string.rupee_symbol_with_space)+" "+tempProductObj!!.get(i).order_discount +" "
+                    }
+                    catch (ex:Exception){
+                        mrp = getString(R.string.rupee_symbol_with_space)+" "
+                        discount = getString(R.string.rupee_symbol_with_space)+" "
+                    }
 
                     val tableRows = PdfPTable(widths)
                     tableRows.defaultCell.horizontalAlignment = Element.ALIGN_CENTER
@@ -539,6 +563,21 @@ class DistributorwiseorderlistFragment : BaseFragment(), View.OnClickListener {
                     cellBody21.setHorizontalAlignment(Element.ALIGN_LEFT)
                     cellBody21.borderColor = BaseColor.GRAY
                     tableRows.addCell(cellBody21)
+
+                    // AppV 4.0.6  mantis 25601
+                    if(Pref.IsViewMRPInOrder){
+                        val cellMrp = PdfPCell(Phrase(mrp, font1))
+                        cellMrp.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        cellMrp.borderColor = BaseColor.GRAY
+                        tableRows.addCell(cellMrp);
+                    }
+
+                    if(Pref.IsDiscountInOrder){
+                        val cellDiscount = PdfPCell(Phrase(discount, font1))
+                        cellDiscount.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        cellDiscount.borderColor = BaseColor.GRAY
+                        tableRows.addCell(cellDiscount);
+                    }
 
                     var cellBody3 = PdfPCell(Phrase(rate, font1))
                     cellBody3.setHorizontalAlignment(Element.ALIGN_LEFT)

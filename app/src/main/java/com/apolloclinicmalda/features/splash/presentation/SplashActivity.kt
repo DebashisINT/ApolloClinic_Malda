@@ -3,14 +3,12 @@ package com.apolloclinicmalda.features.splash.presentation
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
 import android.os.*
@@ -25,6 +23,7 @@ import com.apolloclinicmalda.app.NetworkConstant
 import com.apolloclinicmalda.app.Pref
 import com.apolloclinicmalda.app.uiaction.DisplayAlert
 import com.apolloclinicmalda.app.utils.AppUtils
+import com.apolloclinicmalda.app.utils.FileLoggingTree
 import com.apolloclinicmalda.app.utils.PermissionUtils
 import com.apolloclinicmalda.app.utils.Toaster
 import com.apolloclinicmalda.base.presentation.BaseActivity
@@ -34,23 +33,24 @@ import com.apolloclinicmalda.features.commondialog.presentation.CommonDialogClic
 import com.apolloclinicmalda.features.commondialogsinglebtn.CommonDialogSingleBtn
 import com.apolloclinicmalda.features.commondialogsinglebtn.OnDialogClickListener
 import com.apolloclinicmalda.features.dashboard.presentation.DashboardActivity
+import com.apolloclinicmalda.features.location.SingleShotLocationProvider
 import com.apolloclinicmalda.features.login.presentation.LoginActivity
 import com.apolloclinicmalda.features.splash.presentation.api.VersionCheckingRepoProvider
 import com.apolloclinicmalda.features.splash.presentation.model.VersionCheckingReponseModel
-import com.apolloclinicmalda.widgets.AppCustomTextView
-import com.elvishew.xlog.XLog
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_splash.*
 import net.alexandroid.gps.GpsStatusDetector
-import java.util.*
+import timber.log.Timber
 import kotlin.system.exitProcess
 
 
 /**
  * Created by Pratishruti on 26-10-2017.
  */
-// saheli
+// Revision History
+// 1.0 SplashActivity AppV 4.0.7 Saheli    02/03/2023 Timber Log Implementation
 class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBack {
 
     private var isLoginLoaded: Boolean = false
@@ -68,6 +68,24 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+   /* var fir:File = File(applicationContext.filesDir,"OPLOG")
+    val filename = "OPLOG"
+    val fileContents = "Hello world! ${AppUtils.getCurrentDateTime()}"
+    applicationContext.openFileOutput(filename, Context.MODE_PRIVATE).use {
+        it.write(fileContents.toByteArray())
+    }
+    applicationContext.deleteFile(filename)
+
+    applicationContext.openFileOutput(filename, Context.MODE_PRIVATE).use {
+        it.write(fileContents.toByteArray())
+    }*/
+
+    /*FileLoggingTree.context = this.applicationContext*/
+
+    Timber.plant(Timber.DebugTree())
+    Timber.plant(FileLoggingTree())
+
 
     //startActivity( Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS))
 
@@ -201,10 +219,14 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
         permList = (permList + permListDenied).toMutableList()
 
         for(i in 0..permList.size-1){
-            XLog.d("Permission Name"+permList.get(i).permissionName + " Status : Granted")
+            // 1.0 SplashActivity AppV 4.0.7 Timber Log Implementation
+//            XLog.d("Permission Name"+permList.get(i).permissionName + " Status : Granted")
+            Timber.d("Permission Name"+permList.get(i).permissionName + " Status : Granted")
         }
         for(i in 0..permListDenied.size-1){
-            XLog.d("Permission Name"+permListDenied.get(i).permissionName + " Status : Denied")
+            // 1.0 SplashActivity AppV 4.0.7 Timber Log Implementation
+//            XLog.d("Permission Name"+permListDenied.get(i).permissionName + " Status : Denied")
+            Timber.d("Permission Name"+permListDenied.get(i).permissionName + " Status : Denied")
         }
     }
 
@@ -256,7 +278,8 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
 
             override fun onPermissionNotGranted() {
                 //AppUtils.showButtonSnackBar(this@SplashActivity, rl_splash_main, getString(R.string.error_loc_permission_request_msg))
-                DisplayAlert.showSnackMessage(this@SplashActivity, alert_splash_snack_bar, getString(R.string.accept_permission))
+                DisplayAlert.showSnackMessage(this@SplashActivity, alert_splash_snack_bar, getString(
+                    R.string.accept_permission))
                 Handler().postDelayed(Runnable {
                     finish()
                     exitProcess(0)
@@ -325,18 +348,26 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
                         .subscribe({ result ->
                             progress_wheel.stopSpinning()
                             val response = result as VersionCheckingReponseModel
-
-                            XLog.d("VERSION CHECKING RESPONSE: " + "STATUS: " + response.status + ", MESSAGE:" + result.message)
+                            // 1.0 SplashActivity AppV 4.0.7 Timber Log Implementation
+//                            XLog.d("VERSION CHECKING RESPONSE: " + "STATUS: " + response.status + ", MESSAGE:" + result.message)
+                            Timber.d("VERSION CHECKING RESPONSE: " + "STATUS: " + response.status + ", MESSAGE:" + result.message)
 
                             if (response.status == NetworkConstant.SUCCESS) {
 
-                                XLog.d("===========VERSION CHECKING SUCCESS RESPONSE===========")
+                             /*   XLog.d("===========VERSION CHECKING SUCCESS RESPONSE===========")
                                 XLog.d("min version=====> " + response.min_req_version)
                                 XLog.d("store version=====> " + response.play_store_version)
                                 XLog.d("mandatory msg======> " + response.mandatory_msg)
                                 XLog.d("optional msg=====> " + response.optional_msg)
                                 XLog.d("apk url======> " + response.apk_url)
-                                XLog.d("=======================================================")
+                                XLog.d("=======================================================")*/
+                                Timber.d("===========VERSION CHECKING SUCCESS RESPONSE===========")
+                                Timber.d("min version=====> " + response.min_req_version)
+                                Timber.d("store version=====> " + response.play_store_version)
+                                Timber.d("mandatory msg======> " + response.mandatory_msg)
+                                Timber.d("optional msg=====> " + response.optional_msg)
+                                Timber.d("apk url======> " + response.apk_url)
+                                Timber.d("=======================================================")
 
                                 versionChecking(response)
                                 //goToNextScreen()
@@ -347,7 +378,8 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
 
                         }, { error ->
                             isApiInitiated = false
-                            XLog.d("VERSION CHECKING ERROR: " + "MESSAGE:" + error.message)
+//                            XLog.d("VERSION CHECKING ERROR: " + "MESSAGE:" + error.message)
+                            Timber.d("VERSION CHECKING ERROR: " + "MESSAGE:" + error.message) // 1.0 SplashActivity AppV 4.0.7 Timber Log Implementation
                             error.printStackTrace()
                             progress_wheel.stopSpinning()
                             goToNextScreen()
@@ -493,9 +525,39 @@ class SplashActivity : BaseActivity(), GpsStatusDetector.GpsStatusDetectorCallBa
         if (TextUtils.isEmpty(Pref.user_id) || Pref.user_id.isNullOrBlank()) {
             if (!isLoginLoaded) {
                 isLoginLoaded = true
-                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                finish()
+
+                progress_wheel.spin()
+                try{
+                    SingleShotLocationProvider.requestSingleUpdate(this,
+                        object : SingleShotLocationProvider.LocationCallback {
+                            override fun onStatusChanged(status: String) {
+                            }
+
+                            override fun onProviderEnabled(status: String) {
+                            }
+
+                            override fun onProviderDisabled(status: String) {
+                            }
+
+                            override fun onNewLocationAvailable(location: Location) {
+                                Pref.latitude = location.latitude.toString()
+                                Pref.longitude = location.longitude.toString()
+
+                                progress_wheel.stopSpinning()
+
+                                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                                finish()
+                            }
+                        })
+                }
+                catch (ex:Exception){
+                    ex.printStackTrace()
+                    progress_wheel.stopSpinning()
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    finish()
+                }
             }
 
         } else {
